@@ -1,0 +1,127 @@
+- id: anchor
+  inputs: {}
+  operationId: Anchor
+  parameters: {}
+  parametricParameters: {}
+  x: 0
+  y: 0
+- id: Import-CSV_1
+  inputs: {}
+  operationId: Import CSV
+  parameters:
+    filename: UPLOAD$/b2326a0d77998f7e63b71c7af42f2b57.EdgePair.csv
+    imported_table: 36a8ac92-f33b-3b15-8360-3abeca4c84e5
+    last_settings: |-
+      {
+        "sql" : "",
+        "infer" : "no",
+        "timestamp_format" : "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+        "quote" : "\"",
+        "imported_columns" : "",
+        "null_value" : "",
+        "escape" : "\\",
+        "columns" : "",
+        "filename" : "UPLOAD$/b2326a0d77998f7e63b71c7af42f2b57.EdgePair.csv",
+        "comment" : "",
+        "ignore_trailing_white_space" : "no",
+        "ignore_leading_white_space" : "no",
+        "date_format" : "yyyy-MM-dd",
+        "error_handling" : "FAILFAST",
+        "limit" : "",
+        "delimiter" : ","
+      }
+  parametricParameters: {}
+  x: 379.25
+  y: 360.5
+- id: Import-CSV_2
+  inputs: {}
+  operationId: Import CSV
+  parameters:
+    filename: UPLOAD$/a50021ce0fe7c93940cc63b66b3d3bd6.nodeInfo.csv
+    imported_table: 8f7c9876-ca87-32ef-92a5-378956f7ec8b
+    last_settings: |-
+      {
+        "sql" : "",
+        "infer" : "no",
+        "timestamp_format" : "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+        "quote" : "\"",
+        "imported_columns" : "",
+        "null_value" : "",
+        "escape" : "\\",
+        "columns" : "",
+        "filename" : "UPLOAD$/a50021ce0fe7c93940cc63b66b3d3bd6.nodeInfo.csv",
+        "comment" : "",
+        "ignore_trailing_white_space" : "no",
+        "ignore_leading_white_space" : "no",
+        "date_format" : "yyyy-MM-dd",
+        "error_handling" : "FAILFAST",
+        "limit" : "",
+        "delimiter" : ","
+      }
+  parametricParameters: {}
+  x: 291.25
+  y: 187.75
+- id: Use-table-as-edges_1
+  inputs:
+    graph:
+      boxId: Use-table-as-vertices_1
+      id: graph
+    table:
+      boxId: Import-CSV_1
+      id: table
+  operationId: Use table as edges
+  parameters:
+    attr: id
+    dst: dst
+    src: src
+  parametricParameters: {}
+  x: 730.75
+  y: 269.25
+- id: Use-table-as-vertices_1
+  inputs:
+    table:
+      boxId: Import-CSV_2
+      id: table
+  operationId: Use table as vertices
+  parameters: {}
+  parametricParameters: {}
+  x: 529
+  y: 168
+- id: Bundle-vertex-attributes-into-a-Vector_1
+  inputs:
+    graph:
+      boxId: Convert-vertex-attribute-to-number_1
+      id: graph
+  operationId: Bundle vertex attributes into a Vector
+  parameters:
+    elements: lat,lon
+    output: Position
+  parametricParameters: {}
+  x: 1130
+  y: 146.99999999999997
+- id: Graph-visualization_1
+  inputs:
+    graph:
+      boxId: Bundle-vertex-attributes-into-a-Vector_1
+      id: graph
+  operationId: Graph visualization
+  parameters:
+    state: >-
+      {"left":{"projectPath":"","graphMode":"sampled","display":"svg","filters":{"vertex":{},"edge":{}},"bucketCount":10,"preciseBucketSizes":false,"relativeEdgeDensity":false,"axisOptions":{"vertex":{},"edge":{}},"sampleRadius":10,"attributeTitles":{"position":"Position"},"animate":{"enabled":false,"style":"expand","labelAttraction":0},"centers":["1331079084753238"],"customVisualizationFilters":true,"vertexColorMap":"Viridis","labelColorMap":"Viridis","edgeColorMap":"Viridis","sliderColorMap":"Blue
+      to
+      orange","lastCentersRequest":{"count":1,"filters":[],"offset":19},"lastCentersResponse":["1331079084753238"]},"right":{"display":"svg","filters":{"vertex":{},"edge":{}},"bucketCount":4,"preciseBucketSizes":false,"relativeEdgeDensity":false,"axisOptions":{"vertex":{},"edge":{}},"sampleRadius":1,"attributeTitles":{},"animate":{"enabled":false,"style":"expand","labelAttraction":0},"centers":["auto"],"customVisualizationFilters":false,"vertexColorMap":"Viridis","labelColorMap":"Viridis","edgeColorMap":"Viridis","sliderColorMap":"Blue
+      to orange"}}
+  parametricParameters: {}
+  x: 1313.4068690418592
+  y: 302.2389390779911
+- id: Convert-vertex-attribute-to-number_1
+  inputs:
+    graph:
+      boxId: Use-table-as-edges_1
+      id: graph
+  operationId: Convert vertex attribute to number
+  parameters:
+    attr: lat,lon
+  parametricParameters: {}
+  x: 932.3452400758395
+  y: 145.3291235367808
