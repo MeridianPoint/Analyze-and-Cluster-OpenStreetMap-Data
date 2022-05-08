@@ -1,0 +1,268 @@
+- id: anchor
+  inputs: {}
+  operationId: Anchor
+  parameters: {}
+  parametricParameters: {}
+  x: 0
+  y: 0
+- id: Import-CSV_1
+  inputs: {}
+  operationId: Import CSV
+  parameters:
+    filename: UPLOAD$/3989e48aa37ae7d27053deca67b3044f.nodeInfo.csv
+    imported_table: 34e8eec9-dc75-3840-afff-691d5c429a85
+    last_settings: |-
+      {
+        "sql" : "",
+        "infer" : "no",
+        "timestamp_format" : "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+        "quote" : "\"",
+        "imported_columns" : "",
+        "null_value" : "",
+        "escape" : "\\",
+        "columns" : "",
+        "filename" : "UPLOAD$/3989e48aa37ae7d27053deca67b3044f.nodeInfo.csv",
+        "comment" : "",
+        "ignore_trailing_white_space" : "no",
+        "ignore_leading_white_space" : "no",
+        "date_format" : "yyyy-MM-dd",
+        "error_handling" : "FAILFAST",
+        "limit" : "",
+        "delimiter" : ","
+      }
+  parametricParameters: {}
+  x: 188.67375064628732
+  y: 106.20333160990053
+- id: Import-CSV_2
+  inputs: {}
+  operationId: Import CSV
+  parameters:
+    filename: UPLOAD$/e86f778b41f08d74e68176854e7df2b8.EdgePair.csv
+    imported_table: 834497e1-df84-3118-ad8d-d1e7446c0718
+    last_settings: |-
+      {
+        "sql" : "",
+        "infer" : "no",
+        "timestamp_format" : "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+        "quote" : "\"",
+        "imported_columns" : "",
+        "null_value" : "",
+        "escape" : "\\",
+        "columns" : "",
+        "filename" : "UPLOAD$/e86f778b41f08d74e68176854e7df2b8.EdgePair.csv",
+        "comment" : "",
+        "ignore_trailing_white_space" : "no",
+        "ignore_leading_white_space" : "no",
+        "date_format" : "yyyy-MM-dd",
+        "error_handling" : "FAILFAST",
+        "limit" : "",
+        "delimiter" : ","
+      }
+  parametricParameters: {}
+  x: 219.16160676219016
+  y: 260.7420276168037
+- id: Use-table-as-vertices_1
+  inputs:
+    table:
+      boxId: Import-CSV_1
+      id: table
+  operationId: Use table as vertices
+  parameters: {}
+  parametricParameters: {}
+  x: 352.02273171762755
+  y: 151.76461668107675
+- id: Use-table-as-edges_1
+  inputs:
+    graph:
+      boxId: Use-table-as-vertices_1
+      id: graph
+    table:
+      boxId: Import-CSV_2
+      id: table
+  operationId: Use table as edges
+  parameters:
+    attr: id
+    dst: dst
+    src: src
+  parametricParameters: {}
+  x: 564.3566055696929
+  y: 171.27354598998807
+- id: Compute-centrality_1
+  inputs:
+    graph:
+      boxId: Bundle-vertex-attributes-into-a-Vector_1
+      id: graph
+  operationId: Compute centrality
+  parameters:
+    algorithm: Harmonic
+  parametricParameters: {}
+  x: 997.7732279458208
+  y: 286.67680224819026
+- id: Bundle-vertex-attributes-into-a-Vector_1
+  inputs:
+    graph:
+      boxId: Convert-vertex-attribute-to-number_1
+      id: graph
+  operationId: Bundle vertex attributes into a Vector
+  parameters:
+    elements: lat,lon
+    output: Position
+  parametricParameters: {}
+  x: 850.5341137761195
+  y: 141.4496184748135
+- id: Convert-vertex-attribute-to-number_1
+  inputs:
+    graph:
+      boxId: Use-table-as-edges_1
+      id: graph
+  operationId: Convert vertex attribute to number
+  parameters:
+    attr: lat,lon
+  parametricParameters: {}
+  x: 695.6715198708042
+  y: 49.251721497885725
+- id: Add-rank-attribute_1
+  inputs:
+    graph:
+      boxId: Compute-centrality_1
+      id: graph
+  operationId: Add rank attribute
+  parameters:
+    keyattr: centrality
+    order: descending
+  parametricParameters: {}
+  x: 1188.507532788433
+  y: 358.8773206914888
+- id: Graph-visualization_1
+  inputs:
+    graph:
+      boxId: Add-rank-attribute_1
+      id: graph
+  operationId: Graph visualization
+  parameters:
+    state: >-
+      {"left":{"projectPath":"","graphMode":"sampled","display":"svg","filters":{"vertex":{"ranking":"<500"},"edge":{}},"bucketCount":4,"preciseBucketSizes":false,"relativeEdgeDensity":false,"axisOptions":{"vertex":{},"edge":{}},"sampleRadius":0,"attributeTitles":{"geo
+      coordinates":"Position"},"animate":{"enabled":false,"style":"expand","labelAttraction":0},"centers":["*"],"customVisualizationFilters":false,"vertexColorMap":"Viridis","labelColorMap":"Viridis","edgeColorMap":"Viridis","sliderColorMap":"Blue
+      to
+      orange","edgeStyle":"no"},"right":{"display":"svg","filters":{"vertex":{},"edge":{}},"bucketCount":4,"preciseBucketSizes":false,"relativeEdgeDensity":false,"axisOptions":{"vertex":{},"edge":{}},"sampleRadius":1,"attributeTitles":{},"animate":{"enabled":false,"style":"expand","labelAttraction":0},"centers":["auto"],"customVisualizationFilters":false,"vertexColorMap":"Viridis","labelColorMap":"Viridis","edgeColorMap":"Viridis","sliderColorMap":"Blue
+      to orange"}}
+  parametricParameters: {}
+  x: 1345.3647255111987
+  y: 439.4244979920133
+- id: Compute-centrality_2
+  inputs:
+    graph:
+      boxId: Bundle-vertex-attributes-into-a-Vector_1
+      id: graph
+  operationId: Compute centrality
+  parameters:
+    algorithm: Betweenness
+  parametricParameters: {}
+  x: 885.9066015275432
+  y: 490.579684174906
+- id: Add-rank-attribute_2
+  inputs:
+    graph:
+      boxId: Compute-centrality_2
+      id: graph
+  operationId: Add rank attribute
+  parameters:
+    keyattr: centrality
+    order: descending
+  parametricParameters: {}
+  x: 1076.6409063701556
+  y: 562.7802026182045
+- id: Graph-visualization_2
+  inputs:
+    graph:
+      boxId: Add-rank-attribute_2
+      id: graph
+  operationId: Graph visualization
+  parameters:
+    state: >-
+      {"left":{"projectPath":"","graphMode":"sampled","display":"svg","filters":{"vertex":{"ranking":"<500"},"edge":{}},"bucketCount":4,"preciseBucketSizes":false,"relativeEdgeDensity":false,"axisOptions":{"vertex":{},"edge":{}},"sampleRadius":0,"attributeTitles":{"geo
+      coordinates":"Position"},"animate":{"enabled":false,"style":"expand","labelAttraction":0},"centers":["*"],"customVisualizationFilters":false,"vertexColorMap":"Viridis","labelColorMap":"Viridis","edgeColorMap":"Viridis","sliderColorMap":"Blue
+      to
+      orange","edgeStyle":"no"},"right":{"display":"svg","filters":{"vertex":{},"edge":{}},"bucketCount":4,"preciseBucketSizes":false,"relativeEdgeDensity":false,"axisOptions":{"vertex":{},"edge":{}},"sampleRadius":1,"attributeTitles":{},"animate":{"enabled":false,"style":"expand","labelAttraction":0},"centers":["auto"],"customVisualizationFilters":false,"vertexColorMap":"Viridis","labelColorMap":"Viridis","edgeColorMap":"Viridis","sliderColorMap":"Blue
+      to orange"}}
+  parametricParameters: {}
+  x: 1233.498099092921
+  y: 643.327379918729
+- id: Compute-centrality_3
+  inputs:
+    graph:
+      boxId: Bundle-vertex-attributes-into-a-Vector_1
+      id: graph
+  operationId: Compute centrality
+  parameters:
+    algorithm: Harmonic Closeness
+  parametricParameters: {}
+  x: 1049.307135881916
+  y: 127.0510427776126
+- id: Add-rank-attribute_3
+  inputs:
+    graph:
+      boxId: Compute-centrality_3
+      id: graph
+  operationId: Add rank attribute
+  parameters:
+    keyattr: centrality
+    order: descending
+  parametricParameters: {}
+  x: 1240.041440724528
+  y: 199.2515612209111
+- id: Graph-visualization_3
+  inputs:
+    graph:
+      boxId: Add-rank-attribute_3
+      id: graph
+  operationId: Graph visualization
+  parameters:
+    state: >-
+      {"left":{"projectPath":"","graphMode":"sampled","display":"svg","filters":{"vertex":{"ranking":"<500"},"edge":{}},"bucketCount":4,"preciseBucketSizes":false,"relativeEdgeDensity":false,"axisOptions":{"vertex":{},"edge":{}},"sampleRadius":0,"attributeTitles":{"geo
+      coordinates":"Position"},"animate":{"enabled":false,"style":"expand","labelAttraction":0},"centers":["*"],"customVisualizationFilters":false,"vertexColorMap":"Viridis","labelColorMap":"Viridis","edgeColorMap":"Viridis","sliderColorMap":"Blue
+      to
+      orange","edgeStyle":"no"},"right":{"display":"svg","filters":{"vertex":{},"edge":{}},"bucketCount":4,"preciseBucketSizes":false,"relativeEdgeDensity":false,"axisOptions":{"vertex":{},"edge":{}},"sampleRadius":1,"attributeTitles":{},"animate":{"enabled":false,"style":"expand","labelAttraction":0},"centers":["auto"],"customVisualizationFilters":false,"vertexColorMap":"Viridis","labelColorMap":"Viridis","edgeColorMap":"Viridis","sliderColorMap":"Blue
+      to orange"}}
+  parametricParameters: {}
+  x: 1396.8986334472938
+  y: 279.79873852143555
+- id: Compute-centrality_4
+  inputs:
+    graph:
+      boxId: Bundle-vertex-attributes-into-a-Vector_1
+      id: graph
+  operationId: Compute centrality
+  parameters:
+    algorithm: Eigenvector
+  parametricParameters: {}
+  x: 1005.5603244781396
+  y: 410.62716416018503
+- id: Add-rank-attribute_4
+  inputs:
+    graph:
+      boxId: Compute-centrality_4
+      id: graph
+  operationId: Add rank attribute
+  parameters:
+    keyattr: centrality
+    order: descending
+  parametricParameters: {}
+  x: 1196.294629320752
+  y: 482.82768260348365
+- id: Graph-visualization_4
+  inputs:
+    graph:
+      boxId: Add-rank-attribute_4
+      id: graph
+  operationId: Graph visualization
+  parameters:
+    state: >-
+      {"left":{"projectPath":"","graphMode":"sampled","display":"svg","filters":{"vertex":{"ranking":"","centrality":">0.0001"},"edge":{}},"bucketCount":4,"preciseBucketSizes":false,"relativeEdgeDensity":false,"axisOptions":{"vertex":{},"edge":{}},"sampleRadius":0,"attributeTitles":{"geo
+      coordinates":"Position"},"animate":{"enabled":false,"style":"expand","labelAttraction":0},"centers":["*"],"customVisualizationFilters":false,"vertexColorMap":"Viridis","labelColorMap":"Viridis","edgeColorMap":"Viridis","sliderColorMap":"Blue
+      to
+      orange","edgeStyle":"no"},"right":{"display":"svg","filters":{"vertex":{},"edge":{}},"bucketCount":4,"preciseBucketSizes":false,"relativeEdgeDensity":false,"axisOptions":{"vertex":{},"edge":{}},"sampleRadius":1,"attributeTitles":{},"animate":{"enabled":false,"style":"expand","labelAttraction":0},"centers":["auto"],"customVisualizationFilters":false,"vertexColorMap":"Viridis","labelColorMap":"Viridis","edgeColorMap":"Viridis","sliderColorMap":"Blue
+      to orange"}}
+  parametricParameters: {}
+  x: 1353.1518220435173
+  y: 563.3748599040082
